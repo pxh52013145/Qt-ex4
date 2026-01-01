@@ -1,0 +1,100 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Qt (qmake): Configure (debug)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\vscode-qmake.ps1",
+        "all",
+        "debug",
+        "qmake"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Qt (qmake): Build (debug)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\vscode-qmake.ps1",
+        "all",
+        "debug",
+        "build"
+      ],
+      "dependsOn": ["Qt (qmake): Configure (debug)"],
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": "$gcc"
+    },
+    {
+      "label": "Qt (qmake): Clean (debug)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\vscode-qmake.ps1",
+        "all",
+        "debug",
+        "clean"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Qt (qmake): Rebuild (debug)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\vscode-qmake.ps1",
+        "all",
+        "debug",
+        "rebuild"
+      ],
+      "problemMatcher": "$gcc"
+    },
+    {
+      "label": "Qt (qmake): Run Server (debug)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "Start-Process -FilePath \"${workspaceFolder}\\build\\vscode-server-debug\\debug\\server.exe\" -WorkingDirectory \"${workspaceFolder}\\build\\vscode-server-debug\\debug\""
+      ],
+      "dependsOn": ["Qt (qmake): Build (debug)"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Qt (qmake): Run Client (debug)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "Start-Process -FilePath \"${workspaceFolder}\\build\\vscode-client-debug\\debug\\client.exe\" -WorkingDirectory \"${workspaceFolder}\\build\\vscode-client-debug\\debug\""
+      ],
+      "dependsOn": ["Qt (qmake): Build (debug)"],
+      "problemMatcher": []
+    }
+  ]
+}
+
