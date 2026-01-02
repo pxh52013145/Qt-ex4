@@ -4,6 +4,7 @@
 #include "chatclient.h"
 #include "protocol.h"
 
+#include <QListWidgetItem>
 #include <QCloseEvent>
 #include <QMessageBox>
 
@@ -162,7 +163,21 @@ void ClientWindow::onDisconnected()
 void ClientWindow::onUserListReceived(const QStringList &users)
 {
     ui->listWidgetUsers->clear();
-    ui->listWidgetUsers->addItems(users);
+    const QString self = m_client->userName();
+
+    for (const auto &u : users) {
+        auto *item = new QListWidgetItem(u, ui->listWidgetUsers);
+        item->setData(Qt::UserRole, u);
+
+        if (!self.isEmpty() && u == self) {
+            item->setText(tr("%1 (我)").arg(u));
+            item->setToolTip(tr("这是你"));
+
+            QFont f = item->font();
+            f.setBold(true);
+            item->setFont(f);
+        }
+    }
 }
 
 void ClientWindow::onChatReceived(const QString &from, const QString &text, bool isPrivate, const QString &to)
