@@ -170,9 +170,6 @@ void ClientWindow::onUserListReceived(const QStringList &users)
         item->setData(Qt::UserRole, u);
 
         if (!self.isEmpty() && u == self) {
-            item->setText(tr("%1 (我)").arg(u));
-            item->setToolTip(tr("这是你"));
-
             QFont f = item->font();
             f.setBold(true);
             item->setFont(f);
